@@ -1,6 +1,6 @@
 # vimjail[2, 1.5, 2, 2.5] - misc
 
-Writeup by fslaktern
+Writeup for an unintended solution by fslaktern
 
 Task description:
 > Connect with socat file:$(tty),raw,echo=0 tcp:vimjail1.chal.uiuc.tf:1337. You may need to install socat.
