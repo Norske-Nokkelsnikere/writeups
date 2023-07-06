@@ -192,7 +192,7 @@ However, the effect of it is quite clear. After doing `ctrl`+`printscreen` it se
 
 This means that all these shortcuts are usable:
 - `ctrl`+`o`: run a single command
-- `ctrl`+`l`: redraw the buffer and got to normal mode
+- `ctrl`+`l`: redraw the buffer and return to normal mode
 - `ctrl`+`z`: sending the foreground process to the background (it is enabled, but does not work because shell commands are still prohibited by the flags in `entry.sh`)
 - `ctrl`+`\` followed by `ctrl`+`n`: switch to normal mode
 
