@@ -47,7 +47,7 @@ vim -R -M -Z -u /home/user/vimrc
 ```
 
 `nsjail.cfg`
-```json
+```
 name: "default-nsjail-configuration"
 description: "Default nsjail configuration for pwnable-style CTF task."
 
