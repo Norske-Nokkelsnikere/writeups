@@ -106,7 +106,7 @@ Key information:
     - -R: Sets read-only mode
     - -M: Sets "restricted" mode - restricts use of shell commands and other potentialy unsafe operations
     - -Z: Disables the use of modelines and the shell temporarily
-    - -u /home/user/vimrc: Specifies the config file for vim to use
+    - -u /home/user/vimrc: Specifies the config file for Vim to use
 
 ---
 
@@ -114,14 +114,11 @@ Key information:
 
 ### First thoughts
 
-Can we quit vim using `ZZ` (alternative to `:wq`) and get a shell? 
-\- Nope.
+Can we quit vim using `ZZ` (alternative to `:wq`) and get a shell? Nope.
 
-Can we use netcat instead of socat? 
-\- It just messes up the UI and certainly doesn't make things easier.
+Can we use netcat instead of socat? It just messes up the UI and certainly doesn't make things easier.
 
-Since we are forced in insert mode, are there any keyboard combinations that we can use?
-\- Only one way to find out I suppose.
+Since we are forced in insert mode, are there any keyboard combinations that we can use? Only one way to find out I suppose.
 
 ### Bruteforcing..?
 
@@ -135,7 +132,7 @@ As I look back at the conversation I had with ChatGPT it actually sent me a resp
 
 Since I somehow missed all of that, the next step was to try all keyboard combinations that include `ctrl`, `alt`, `alt gr`, `shift`, `meta`/`super`. 
 
-A few minutes later I had finished mashing my keyboard. And it seemed to have worked - when I sent `ctrl` + `o` I was able to run /almost) any vim command prefixed with a `:`. Shell access and writing to files were still prohibited.
+A few minutes later I had finished mashing my keyboard. And it seemed to have worked - when I sent `ctrl` + `o` I was able to run (almost) any vim command prefixed with a `:`. Shell access and writing to files were still not possible.
 
 ### How-to: Open another file when already in a vim buffer
 
@@ -145,7 +142,7 @@ As it turns out, we may use both `:n /flag.txt` or `:e /flag.txt` to get the fla
 ### What happened?
 
 Why were we suddenly able to run `ctrl` + `o` seemingly unrestricted..?
-Something we mashed on the keyboard earlier must've messed with vim and granted us access to run `ctrl` + `o`.
+Something we mashed on the keyboard earlier must've messed with vim and basically erased the `vimrc` config file.
 
 
 ## vimjail 1.5
@@ -157,10 +154,10 @@ Something we mashed on the keyboard earlier must've messed with vim and granted 
 
 Alright, so there was an unintended solution in vimjail 1, let's see if my method of mashing the keys work this time as well.
 
-A few minutes later the conclusion is: yes, it still works, whatever I had done.
+A few minutes later the conclusion is: Yes, it does still work, whatever I had done.
 
 My initial thoughts were that whatever I managed to do was the intended solution.
-But what *was* the solution? It was something I had yet to discover.
+But what *was* the solution, what did I actually do to get foothold? It was something I had yet to discover.
 
 ## vimjail 2
 
@@ -175,28 +172,28 @@ Instead of the usual 4 files, we actually get 5 files this time:
 
 ### Figuring out why
 
-That being said, I wasted no time trying to actually figure out the difference between these challenges by comparing the configuration files. Probably should've done that had I not been this lucky.
+That being said, I wasted no time trying to actually figure out the difference between these challenges by comparing the configuration files. Probably should've done that had I not been lucky enough to have found this unintended solution.
 
-For the third time, bruteforce was sufficient in getting access to the command line in vim.
+For the third time, bruteforce was sufficient in getting access to the Vim command line again.
 
-This time though, I figured out that it had to do with some keyboard shortcut that starts with `ctrl`.
+This time though, I figured out that it had to do with some keyboard combination that starts with `ctrl`.
 
-By repeating this process until I had command line access I managed to figure out which keyboard shortcut it was that caused magic to happen.
+By repeating steps below until I had command line access I managed to figure out which keyboard shortcut it was that caused magic to happen.
 
 1. Hit `ctrl`+`some key`
 2. Hit `ctrl`+`o`
-3. Check if the menu line says something like `-- (insert) --` indicating access to run vim commands.
+3. Check if the menu line says something like `-- (insert) --` indicating access to run Vim commands.
 
-The magic was caused by `ctrl` + `printscreen` and I still have no idea why that worked.
+The magic was caused by `ctrl` + `printscreen` and I still have no idea what that combination actually does or why it would mess with Vim.
 
 ### What is the effect?
 
-However, the effect of it is quite clear. After doing `ctrl`+`printscreen` it seems to erase everything that is configured in `vimrc`.
+However, the effect of it is quite clear. After doing `ctrl`+`printscreen` it seems to erase everything that is configured in `vimrc`. Essentially, all the keyboard combinations that were disabled in `vimrc` were now enabled.
 
-This means that all these shortcuts are now enabled:
+This means that all these shortcuts are usable:
 - `ctrl`+`o`: run a single command
 - `ctrl`+`l`: redraw the buffer and got to normal mode
-- `ctrl`+`z`: (is enabled, but does not work because shell commands are prohibited by the flags in `entry.sh`)
+- `ctrl`+`z`: sending the foreground process to the background (it is enabled, but does not work because shell commands are still prohibited by the flags in `entry.sh`)
 - `ctrl`+`\` followed by `ctrl`+`n`: switch to normal mode
 
 Very odd, I must say.
@@ -213,7 +210,7 @@ The `ctrl`+`printscreen` does not work via WSL. I suspect that it is caused by e
 
 Yet another unintended solve fixed. However, the `prinscreen` magic still seem to work flawlessly.
 
-I needed a bit of help from vim's internal autocompletion for commands and files for this to work, as all (except `q`) were turned into underscores.
+I needed a bit of help from vim's internal autocompletion for commands and files for this to work, as all lowercase letters (except `q`) and most special symbols were turned into underscores.
 
 ## Video of my original solution
 
