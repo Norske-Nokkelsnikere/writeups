@@ -1,4 +1,4 @@
-CTF: [LIT CTF 2023](https://ctftime.org/event/2052) 
+CTF: [LIT CTF 2023](https://ctftime.org/event/2052)  
 Category: Reverse  
 Description: I love regex.  
 Challenge points: 41 solves / 213 points  
