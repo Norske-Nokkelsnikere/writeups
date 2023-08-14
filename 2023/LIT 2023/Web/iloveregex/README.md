@@ -68,6 +68,7 @@ We are first doing a positive lookahead, where we capture the 5th character into
 A better example would be ``(?=.{0}(.).{2}\1)``  
 For it to match we need to have a string where first character and third after the first character are the same. 1001 would work, but 1110 wouldn't.  
 
+
 So I started doing adding each pattern up and matching them. Most efficient would be writing a script that does it for you, but I decided to waste some time on this and did it manually. It took a 3 times before I was able to do it (because human error).
 
 In the end I got the string that matched with the regex  
