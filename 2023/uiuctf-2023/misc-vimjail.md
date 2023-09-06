@@ -1,4 +1,4 @@
-# vimjail[2, 1.5, 2, 2.5] - misc
+# vimjail[1, 1.5, 2, 2.5] - misc
 
 Writeup for an unintended solution by fslaktern
 
