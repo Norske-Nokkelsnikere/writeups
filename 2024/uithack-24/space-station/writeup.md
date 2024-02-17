@@ -11,6 +11,19 @@ Here we get 3 endpoints:
 * GET /get_rotors
 * POST /post_decrypt
 
+This didn't say much to me except that I need to use data from rotors to decrypt encrypted text.  
+When I've decrypted the text I send it into the post_decrypt endpoint as a key.  
+
+  
+
+## Solving
+I wasn't quite sure what to do at first, so I searched up rotor ciper.
+I then found out this is inspired by Enigma Machine, and the description also included Enigma.
+
+I took the time to understand [How did the Enigma Machine work?](https://www.youtube.com/watch?v=ybkkiGtJmkM)  
+During the video they showcased how you take a character and make it go through different rotors that changes the character.  
+I thought it would be the same then to get the decrypted key.
+
 ## Solvescript
 ```py
 import requests
